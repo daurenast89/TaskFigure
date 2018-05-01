@@ -2,19 +2,21 @@ package main
 
 import (
 	"fmt"
-	"TaskFigure/figure"
+	"figure"
 )
 
-
-
-type Area [figure.AreaSize][figure.AreaSize]int //Поле, где размещаются все фигуры
-
-
-
 func main(){
-	allFigInArea := make(map[string]figure.Painter) //хранение всех существующих фигур
+	NewReactangle := new(figure.Rectangle)
+	Area:=*figure.Area
+	for i:=0; i < figure.AreaSize; i++ {
+		for j := 0; j < figure.AreaSize; j++ {
+			Area[i][j] = 0
+		}
+	}
 
-	RectCreate:=new(rectangle)
-	//RectCreate.Create("test", 1,2,3,4)
-	fmt.Println(RectCreate.Create("test", 1,2,3,4))
+
+	NewReactangle.Create("Rect",10, 10, 5,4)
+	for _, v := range figure.Area { //Вывод Нашего поля на экран
+		fmt.Println(v)
+	}
 }
