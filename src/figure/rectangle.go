@@ -8,19 +8,19 @@ import (
 // Описание фигуры Прямоугольник.
 type Rectangle struct {
 	Name     string
-	AreaRect *AreaType
+	AreaRect *[AreaSize][AreaSize]int
 	Coord    [][2]int
 }
 
 //создание фигуры; на вход подаются начальные значения координат x,y и стороны прямоугольника
 //при успешности создастся фигура, и метод вернет "nil"
 // зачем name
-func (r *Rectangle) Create(name string, coordX, coordY int, param ...int) error {
-	tempArea := *r.AreaRect                    //создается слепок существующего поля
+func (r *Rectangle) Create(Area *[AreaSize][AreaSize]int,name string, coordX, coordY int, param ...int) error {
+	tempArea := *Area                    //создается слепок существующего поля
 	coord := make([][2]int, param[0]*param[1]) // массив для хранения
 	r.Coord = coord
-	for i := coordX; i < i+param[0]; i++ {
-		for j := coordY; j < j+param[1]; j++ {
+	for i := coordX; i < coordX+param[0]; i++ {
+		for j := coordY; j < coordY+param[1]; j++ {
 			if tempArea[i][j] == 1 {
 				return errors.New("Невозможно построить прямоугольник, на этих координатах есть другая фигура")
 			} else {
@@ -29,7 +29,9 @@ func (r *Rectangle) Create(name string, coordX, coordY int, param ...int) error 
 		}
 	}
 	fmt.Println(r.Coord)
+	*Area = tempArea
 	r.AreaRect = &tempArea
+	fmt.Println("rect", r.AreaRect)
 	return nil
 }
 
